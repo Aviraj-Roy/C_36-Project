@@ -48,9 +48,18 @@ class Food
         }
     }     
     
-    /*happyPart(
+    happyPart()
     {
         background(happyDogImg, 400, 400);
-    }*/
+    }
+        
+    shaitanPart()
+    {
+        background(groundImg, 400, 400);
+    }
+    
+    sadPart()
+    {
+        backgroud(saddogImg, 400, 400);
     
  }
