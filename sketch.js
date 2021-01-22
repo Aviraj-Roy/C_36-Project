@@ -4,7 +4,7 @@ var bottle = 20; var lastFed=0; var suffix="";
 var database; 
 var groundImg, saddogImg;
 var readGameState, changeGameState;
-
+var gameState = Hungry;
 function preload()
 {
   dogImg = loadImage("Dog.png");
@@ -98,13 +98,29 @@ function draw()
       Food:x
     })
   }
+  
+  function update(state)
+  {
+    database.ref('/').update({
+      gameState:state
+    });
+  }
+  
+  if(gameState!=Hungry)
+  {
+    feed.hide(); addFood.hide(); 
+    dog.remove();
+  }
+  else
+  {
+    feed.show(); addFood.show();
+    dpg.addImage(saddogImg);
+  }
 }
 
 function feedDog()
   {
-    dog.x=200;
-    dog.addImage(happyDogImg);
-    
+       
     foodObj.updateFoodStock(foodObj.getFoodStock()-1);
     database.ref("/").update({
       Food : foodObj.getFoodStock(),
@@ -127,8 +143,9 @@ function readStock(data)
   foodObj.updateFoodStock(foodS);
   }
 
-function backToPosition()
+/*function backToPosition()
 {
   dog.x = 400;
   dog.addImage(dogImg)
-}
+}*/
+
